@@ -1,10 +1,12 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class EmployeeService {
     private List<Employee> employeeList = new ArrayList<>();
 
@@ -27,5 +29,9 @@ public class EmployeeService {
 
     public void addEmployeeList(List<Employee> inputEmployeeList) {
         employeeList.addAll(inputEmployeeList);
+    }
+
+    public Employee getEmployee(int employeeId){
+        return employeeList.get(employeeId);
     }
 }
