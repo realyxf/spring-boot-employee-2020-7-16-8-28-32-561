@@ -18,6 +18,30 @@ public class EmployeeService {
         return employeeList;
     }
 
+    public List<Employee> getEmployeesOfCurPage(int page, int pageSize) {
+        List<Employee> curPageEmployees = new ArrayList<>();
+        if (page == 1) {
+            for (int employeeItem = 0; employeeItem < pageSize; employeeItem++) {
+                curPageEmployees.add(employeeList.get(employeeItem));
+            }
+        } else {
+            for (int employeeItem = (pageSize * (page - 1)); employeeItem < page * pageSize; employeeItem++) {
+                curPageEmployees.add(employeeList.get(employeeItem));
+            }
+        }
+        return curPageEmployees;
+    }
+
+    public List<Employee> getEmployeeWithGender(String gender){
+        List<Employee> curEmployee = new ArrayList<>();
+        for(int employeeItem = 0; employeeItem < employeeList.size(); employeeItem++){
+            if(employeeList.get(employeeItem).getGender().equals(gender)){
+                curEmployee.add(employeeList.get(employeeItem));
+            }
+        }
+        return curEmployee;
+    }
+
     public void deleteEmployee(int employeeId) {
         employeeList.removeIf(employee -> employee.getId() == employeeId);
     }
@@ -31,7 +55,7 @@ public class EmployeeService {
         employeeList.addAll(inputEmployeeList);
     }
 
-    public Employee getEmployee(int employeeId){
+    public Employee getEmployee(int employeeId) {
         return employeeList.get(employeeId);
     }
 }
