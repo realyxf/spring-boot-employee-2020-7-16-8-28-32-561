@@ -51,17 +51,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(int employeeId) {
-
+        employeeRepository.deleteById(employeeId);
     }
 
     @Override
     public void updateEmployee(Employee employee) {
-
+        employeeRepository.save(employee);
     }
 
     @Override
     public void addEmployeeList(List<Employee> inputEmployeeList) {
-
+        employeeRepository.saveAll(inputEmployeeList);
     }
 
     public Employee getEmployee(int employeeId) {

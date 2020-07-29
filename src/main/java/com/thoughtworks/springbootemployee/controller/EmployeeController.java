@@ -38,4 +38,19 @@ public class EmployeeController {
         return employeeService.getEmployeeWithGender(gender);
     }
 
+    @PutMapping("/{employeeId}")
+    public void updateEmployee(@RequestBody Employee employee) {
+        employeeService.updateEmployee(employee);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployee(@PathVariable int employeeId) {
+        employeeService.deleteEmployee(employeeId);
+    }
+
+    @PostMapping
+    public void addEmployee(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
+    }
+
 }
