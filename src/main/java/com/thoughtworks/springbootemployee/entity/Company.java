@@ -2,13 +2,18 @@ package com.thoughtworks.springbootemployee.entity;
 
 import com.thoughtworks.springbootemployee.service.CompanyService;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "company")
 public class Company {
-    private int id;
 
-    private List<Employee> employeeList = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private int id;
 
     public Company(int id){
         this.id = id;
@@ -24,11 +29,4 @@ public class Company {
         this.id = id;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
 }
