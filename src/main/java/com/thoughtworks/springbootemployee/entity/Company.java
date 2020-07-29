@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Company {
     private String companyName;
 
     @OneToMany(mappedBy="company")
+    @JsonIgnore
     private List<Employee> employeesList;
 
     public Company(int id){

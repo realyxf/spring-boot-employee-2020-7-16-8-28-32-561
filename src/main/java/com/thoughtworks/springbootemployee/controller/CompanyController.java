@@ -19,7 +19,7 @@ public class CompanyController {
     public List<Company> getAllCompanies() {
         return companyService.getAllCompany();
     }
-
+    
     @PostMapping
     public void addCompany(@RequestBody Company company) {
         companyService.addCompany(company);
