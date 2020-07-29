@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CompanyService {
 
-    List<Company> companyList = new ArrayList<>();
+    //List<Company> companyList = new ArrayList<>();
 
     public List<Company> getAllCompany();
 
@@ -23,6 +23,5 @@ public interface CompanyService {
     public void updateCompany(Company newCompany);
 
     public void deleteCompany(int companyId);
-
 
 }
