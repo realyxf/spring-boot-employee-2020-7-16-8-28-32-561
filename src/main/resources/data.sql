@@ -10,15 +10,15 @@ CREATE TABLE employee
     company_id INT
 );
 
-INSERT INTO employee(name, age, gender) VALUES
-('AAAA','11','male'),
-('BBBB','11','male'),
-('CCCC','11','female'),
-('DDDD','11','male'),
-('EEEE','11','female'),
-('FFFF','11','female'),
-('GGGG','11','female'),
-('HHHH','11','female');
+INSERT INTO employee(name, age, gender, company_id) VALUES
+('AAAA','11','male','1'),
+('BBBB','11','male','1'),
+('CCCC','11','female','1'),
+('DDDD','11','male','1'),
+('EEEE','11','female','2'),
+('FFFF','11','female','2'),
+('GGGG','11','female','2'),
+('HHHH','11','female','2');
 
 CREATE TABLE company
 (
@@ -26,4 +26,4 @@ CREATE TABLE company
     name varchar(100)
 );
 
-INSERT INTO company(name) VALUES ('oocl');
+INSERT INTO company(name) VALUES ('oocl') , VALUES ('tw');
