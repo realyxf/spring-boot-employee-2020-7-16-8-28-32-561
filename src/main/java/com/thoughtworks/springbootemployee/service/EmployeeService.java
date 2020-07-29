@@ -21,7 +21,7 @@ public interface EmployeeService {
 
     public void addEmployeeList(List<Employee> inputEmployeeList);
 
-    public Employee getEmployee(int employeeId);
+    public Employee getEmployee(int employeeId) throws Exception;
 
 
 }

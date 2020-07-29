@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId){
+    public Employee getEmployee(@PathVariable int employeeId) throws Exception {
         return employeeService.getEmployee(employeeId);
     }
 

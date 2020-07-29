@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.ExceptionHandler.CompanyNotFoundException;
+import com.thoughtworks.springbootemployee.ExceptionHandler.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.saveAll(inputEmployeeList);
     }
 
-    public Employee getEmployee(int employeeId) {
-        return employeeRepository.findById(employeeId).orElse(null);
+    public Employee getEmployee(int employeeId) throws Exception {
+        return employeeRepository.findById(employeeId).orElseThrow(()-> new EmployeeNotFoundException());
     }
 }
