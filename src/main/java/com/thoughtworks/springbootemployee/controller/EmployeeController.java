@@ -33,6 +33,9 @@ public class EmployeeController {
         return employeeService.getEmployeesOfCurPage(page,pageSize);
     }
 
-
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeeWithGender(@RequestParam String gender){
+        return employeeService.getEmployeeWithGender(gender);
+    }
 
 }
