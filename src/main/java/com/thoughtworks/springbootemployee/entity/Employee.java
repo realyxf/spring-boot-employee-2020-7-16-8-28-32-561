@@ -11,6 +11,9 @@ public class Employee {
     private String name;
     private int age;
     private String gender;
+    @JoinColumn(name = "company_id")
+    @ManyToOne
+    private Company company;
 
     public int getId() {
         return id;

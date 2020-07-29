@@ -1,61 +1,67 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class EmployeeServiceImpl {
-    private List<Employee> employeeList = new ArrayList<>();
+public class EmployeeServiceImpl implements EmployeeService {
 
-    public void addEmployee(Employee employee) {
-        employeeList.add(employee);
+    private final EmployeeRepository employeeRepository;
+    @Autowired
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
+    @Override
     public List<Employee> getAllEmployee() {
-        return employeeList;
+        return employeeRepository.findAll();
     }
 
+    @Override
     public List<Employee> getEmployeesOfCurPage(int page, int pageSize) {
-        List<Employee> curPageEmployees = new ArrayList<>();
-        if (page == 1) {
-            for (int employeeItem = 0; employeeItem < pageSize; employeeItem++) {
-                curPageEmployees.add(employeeList.get(employeeItem));
-            }
-        } else {
-            for (int employeeItem = (pageSize * (page - 1)); employeeItem < page * pageSize; employeeItem++) {//TODO fixbug .sublist
-                curPageEmployees.add(employeeList.get(employeeItem));
-            }
+        int length = employeeRepository.findAll().size();
+
+        if ((page - 1) * pageSize > length - 1){
+            return new ArrayList<>();
         }
-        return curPageEmployees;
+
+        return employeeRepository.findAll()
+                .subList(Math.min((page - 1) * pageSize,length-1),Math.min(length, page * pageSize));
     }
 
-    public List<Employee> getEmployeeWithGender(String gender){
-        List<Employee> curEmployee = new ArrayList<>();
-        for(int employeeItem = 0; employeeItem < employeeList.size(); employeeItem++){
-            if(employeeList.get(employeeItem).getGender().equals(gender)){
-                curEmployee.add(employeeList.get(employeeItem));
-            }
-        }
-        return curEmployee;
+    @Override
+    public void addEmployee(Employee employee) {
+        employeeRepository.save(employee);
     }
 
+
+    @Override
+    public List<Employee> getEmployeeWithGender(String gender) {
+        return null;
+    }
+
+    @Override
     public void deleteEmployee(int employeeId) {
-        employeeList.removeIf(employee -> employee.getId() == employeeId);
+
     }
 
+    @Override
     public void updateEmployee(Employee employee) {
-        employeeList.remove(employee.getId());
-        employeeList.add(employee);
+
     }
 
+    @Override
     public void addEmployeeList(List<Employee> inputEmployeeList) {
-        employeeList.addAll(inputEmployeeList);
+
     }
 
     public Employee getEmployee(int employeeId) {
-        return employeeList.get(employeeId);
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 }

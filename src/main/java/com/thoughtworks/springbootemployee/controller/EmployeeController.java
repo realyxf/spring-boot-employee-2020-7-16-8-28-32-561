@@ -8,48 +8,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/employees")
 public class EmployeeController {
 
+    private final EmployeeServiceImpl employeeService;
+
     @Autowired
-    EmployeeServiceImpl employeeServiceImpl;
-
-    @GetMapping(path = "/employees")
-    public List<Employee> getCurPageEmployees(@RequestParam(required = false) Integer page,
-                                              @RequestParam(required = false) Integer pageSize,
-                                              @RequestParam(required = false) String gender) {
-        if (page == null && pageSize == null && gender == null) {//TODO
-            return employeeServiceImpl.getAllEmployee();
-        }
-
-        if(page == null && pageSize == null && gender != null){
-            return employeeServiceImpl.getEmployeeWithGender(gender);
-        }
-        return employeeServiceImpl.getEmployeesOfCurPage(page, pageSize);
+    public EmployeeController(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
     }
 
-    @PostMapping(path = "/employees")
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeServiceImpl.addEmployee(employee);
+    @GetMapping
+    public List<Employee> getAllEmployees(){
+        return employeeService.getAllEmployee();
     }
 
-    @PutMapping(path = "/employees/{employeeId}")
-    public void updateEmployee(@PathVariable int employeeId,@RequestBody Employee employee) {
-        employeeServiceImpl.updateEmployee(employee);
+    @GetMapping("/{employeeId}")
+    public Employee getEmployee(@PathVariable int employeeId){
+        return employeeService.getEmployee(employeeId);
     }
 
-    @DeleteMapping(path = "/employees/{employeeId}")
-    public void deleteEmployee(@PathVariable int employeeId) {
-        employeeServiceImpl.deleteEmployee(employeeId);
+    @GetMapping(params = {"page","pageSize"})
+    public List<Employee> getEmployeesOfCurPage(@RequestParam int page,@RequestParam int pageSize){
+        return employeeService.getEmployeesOfCurPage(page,pageSize);
     }
 
-    @PostMapping(path = "/employeeslist")
-    public void addEmployeeList(@RequestBody List<Employee> inputEmployeeList) { //TODO dont push
-        employeeServiceImpl.addEmployeeList(inputEmployeeList);
-    }
 
-    @GetMapping(path = "/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId) {
-        return employeeServiceImpl.getEmployee(employeeId);
-    }
 
 }

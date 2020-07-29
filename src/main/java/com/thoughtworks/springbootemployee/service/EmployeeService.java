@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    //List<Employee> employeeList = new ArrayList<>();
-
     public void addEmployee(Employee employee);
 
     public List<Employee> getAllEmployee();
