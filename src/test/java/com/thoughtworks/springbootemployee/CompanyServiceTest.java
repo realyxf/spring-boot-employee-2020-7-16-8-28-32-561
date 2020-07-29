@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +30,21 @@ public class CompanyServiceTest {
 
         // given
         List<Company> companies = Collections.nCopies(2, new Company());
+        Mockito.when(companyRepository.getAllCompany()).thenReturn(companies);
+        // when
+        List<Company> companiesQueried = companyService.getAllCompany();
+        // then
+        assertEquals(2, companiesQueried.size());
+    }
+
+    @Test
+    void should_return_1_company_when_get_company_given_1_company_id() {
+
+        // given
+        List<Company> companies =new ArrayList<>();
+        companies.add(new Company(1));
+        companies.add(new Company(2));
+
         Mockito.when(companyRepository.getAllCompany()).thenReturn(companies);
         // when
         List<Company> companiesQueried = companyService.getAllCompany();
