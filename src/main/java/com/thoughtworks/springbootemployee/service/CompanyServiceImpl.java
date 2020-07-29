@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.ExceptionHandler.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
@@ -26,8 +27,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company getCompany(int companyId) {
-        return companyRepository.findById(companyId).orElse(null);
+    public Company getCompany(int companyId) throws Exception{
+        return companyRepository.findById(companyId).orElseThrow(()-> new CompanyNotFoundException());
     }
 
     @Override

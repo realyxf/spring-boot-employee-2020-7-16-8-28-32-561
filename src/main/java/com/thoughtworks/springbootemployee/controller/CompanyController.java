@@ -19,7 +19,7 @@ public class CompanyController {
     public List<Company> getAllCompanies() {
         return companyService.getAllCompany();
     }
-    
+
     @PostMapping
     public void addCompany(@RequestBody Company company) {
         companyService.addCompany(company);
@@ -32,7 +32,7 @@ public class CompanyController {
     }
 
     @GetMapping(path = "/{companyId}")
-    public Company getCompany(@PathVariable int companyId) {
+    public Company getCompany(@PathVariable int companyId) throws Exception {
         return companyService.getCompany(companyId);
     }
 

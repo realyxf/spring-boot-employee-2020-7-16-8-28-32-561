@@ -12,7 +12,7 @@ public interface CompanyService {
 
     public List<Company> getAllCompany();
 
-    public Company getCompany(int companyId);
+    public Company getCompany(int companyId) throws Exception;
 
     public List<Employee> getEmployeesOfCompany(int companyId);
 
