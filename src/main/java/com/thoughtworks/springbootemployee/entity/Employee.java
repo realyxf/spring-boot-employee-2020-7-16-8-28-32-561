@@ -26,6 +26,11 @@ public class Employee {
         this.company = company;
     }
 
+    public Employee( String name) {
+        this.name = name;
+
+    }
+
     public Company getCompany() {
         return company;
     }
