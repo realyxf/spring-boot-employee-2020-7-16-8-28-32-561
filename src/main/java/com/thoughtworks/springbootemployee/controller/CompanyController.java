@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class CompanyController {
 
     @Autowired
-    CompanyServiceImpl companyService;
+    CompanyServiceImpl companyService;//TODO
 
     @GetMapping
     public List<Company> getAllCompanies() {
@@ -21,6 +22,7 @@ public class CompanyController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void addCompany(@RequestBody Company company) {
         companyService.addCompany(company);
     }

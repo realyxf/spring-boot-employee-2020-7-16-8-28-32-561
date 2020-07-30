@@ -1,6 +1,8 @@
 package com.thoughtworks.springbootemployee.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employee")
@@ -8,8 +10,10 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private String name;
     private int age;
+    @Size(max = 6,min = 2)
     private String gender;
     @JoinColumn(name = "company_id")
     @ManyToOne
