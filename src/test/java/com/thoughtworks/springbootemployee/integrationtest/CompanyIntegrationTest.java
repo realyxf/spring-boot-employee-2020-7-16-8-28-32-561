@@ -32,7 +32,7 @@ public class CompanyIntegrationTest {
     private CompanyRepository companyRepository;
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         companyRepository.deleteAll();
     }
 
@@ -68,17 +68,36 @@ public class CompanyIntegrationTest {
                 .andExpect(status().isCreated());
 
         List<Company> companyList = companyRepository.findAll();
-        assertEquals(1,companyList.size());
+        assertEquals(1, companyList.size());
 
-        assertEquals("oocl",companyList.get(0).getCompanyName());
+        assertEquals("oocl", companyList.get(0).getCompanyName());
     }
 
     @Test
     void should_return_ok_when_delete_1_company_given_1_company() throws Exception {
 
         Company company = new Company("OOCL");
-        int id =companyRepository.save(company).getId();
+        int id = companyRepository.save(company).getId();
 
-        mockMvc.perform(delete("/companies/"+id)).andExpect(status().isOk());
+        mockMvc.perform(delete("/companies/" + id)).andExpect(status().isOk());
+    }
+
+    @Test
+    void should_return_1_company_when_update_1_company_given_1_company() throws Exception {
+        Company company = new Company("OOCL");
+        int id = companyRepository.save(company).getId();
+        String companyJson = "{\n" +
+                "    \"id\": 1,\n" +
+                "    \"companyName\": \"oocl\"\n" +
+                "  }";
+
+        mockMvc.perform(put("/companies/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(companyJson))
+                .andExpect(status().isOk());
+
+        List<Company> companyList = companyRepository.findAll();
+
+        assertEquals("oocl", companyList.get(0).getCompanyName());
     }
 }
