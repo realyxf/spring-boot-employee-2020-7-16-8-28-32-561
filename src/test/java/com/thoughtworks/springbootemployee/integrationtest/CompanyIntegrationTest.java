@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,7 +74,11 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_ok_when_delete_1_company_given_1_company(){
+    void should_return_ok_when_delete_1_company_given_1_company() throws Exception {
 
+        Company company = new Company("OOCL");
+        int id =companyRepository.save(company).getId();
+
+        mockMvc.perform(delete("/companies/"+id)).andExpect(status().isOk());
     }
 }
