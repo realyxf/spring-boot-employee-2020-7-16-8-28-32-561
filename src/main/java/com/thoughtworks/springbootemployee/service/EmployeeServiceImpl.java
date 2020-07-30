@@ -1,23 +1,28 @@
 package com.thoughtworks.springbootemployee.service;
 
-import com.thoughtworks.springbootemployee.ExceptionHandler.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.ExceptionHandler.EmployeeNotFoundException;
+import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final CompanyRepository companyRepository;
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
         this.employeeRepository = employeeRepository;
+        this.companyRepository = companyRepository;
     }
 
     @Override
@@ -67,6 +72,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployee(int employeeId) throws Exception {
-        return employeeRepository.findById(employeeId).orElseThrow(()-> new EmployeeNotFoundException());
+        return employeeRepository.findById(employeeId).orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    public Employee getEmployee1(EmployeeRequest employeeRequest) {
+        Optional<Company> company = companyRepository.findById(employeeRequest.getCompany_id());
+        Employee employee = new Employee();
+
+        employee.setAge(employeeRequest.getAge());
+        employee.setGender(employeeRequest.getGender());
+        employee.setName(employeeRequest.getName());
+        employee.setCompany(company.get());
+
+        employeeRepository.save(employee);
+
+        return employee;
     }
 }
