@@ -15,6 +15,25 @@ public class Employee {
     @ManyToOne
     private Company company;
 
+    public Employee() {
+    }
+
+    public Employee(int id, String name, int age, String gender, Company company) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public int getId() {
         return id;
     }
