@@ -9,10 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,5 +54,22 @@ public class EmployeeIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].name").value("a"))
                 .andExpect(jsonPath("[1].name").value("b"));
+    }
+
+    @Test
+    void should_return_1_employee_when_add_1_employee_given_1_employee() throws Exception {
+        String employeeJson = "{\n" +
+                "    \"name\": \"test\"\n" +
+                "  }";
+
+        mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeJson))
+                .andExpect(status().isCreated());
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        assertEquals(1, employeeList.size());
+
+        assertEquals("test", employeeList.get(0).getName());
     }
 }
