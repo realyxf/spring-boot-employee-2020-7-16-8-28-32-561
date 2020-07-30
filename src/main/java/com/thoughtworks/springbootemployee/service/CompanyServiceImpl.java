@@ -28,7 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getCompany(int companyId) throws Exception{
-        return companyRepository.findById(companyId).orElseThrow(()-> new CompanyNotFoundException());
+        return companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
     }
 
     @Override
