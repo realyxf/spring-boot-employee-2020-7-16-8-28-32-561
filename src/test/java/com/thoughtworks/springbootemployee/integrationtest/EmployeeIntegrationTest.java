@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,5 +76,15 @@ public class EmployeeIntegrationTest {
         assertEquals(1, employeeList.size());
 
         assertEquals("aaaa", employeeList.get(0).getName());
+    }
+
+    @Test
+    void should_return_ok_when_delete_1_employee_given_1_employee() throws Exception{
+
+        Employee employee = new Employee("aaa");
+        int id = employeeRepository.save(employee).getId();
+
+        mockMvc.perform(delete("/employees/" + id)).andExpect(status().isOk());
+
     }
 }
