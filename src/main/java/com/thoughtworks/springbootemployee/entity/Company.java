@@ -28,6 +28,11 @@ public class Company {
         this.companyName = companyName;
     }
 
+    public Company(int id, String companyName) {
+        this.id = id;
+        this.companyName = companyName;
+    }
+
     public Company(int id){
         this.id = id;
     }

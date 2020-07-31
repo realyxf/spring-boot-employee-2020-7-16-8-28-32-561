@@ -56,9 +56,17 @@ public class EmployeeIntegrationTest {
 
     @Test
     void should_return_1_employee_when_add_1_employee_given_1_employee() throws Exception {
+        String companyJson = "{\n" +
+                "    \"companyName\": \"OOCL\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson));
+
         String employeeJson = "{\n" +
-                "    \"name\": \"test\"\n" +
-                "  }";
+                "    \"name\": \"aaaa\",\n" +
+                "    \"age\": 20,\n" +
+                "    \"gender\": \"Male\",\n" +
+                "    \"company_id\": 1\n" +
+                "}";
 
         mockMvc.perform(post("/employees")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,6 +76,6 @@ public class EmployeeIntegrationTest {
         List<Employee> employeeList = employeeRepository.findAll();
         assertEquals(1, employeeList.size());
 
-        assertEquals("test", employeeList.get(0).getName());
+        assertEquals("aaaa", employeeList.get(0).getName());
     }
 }
