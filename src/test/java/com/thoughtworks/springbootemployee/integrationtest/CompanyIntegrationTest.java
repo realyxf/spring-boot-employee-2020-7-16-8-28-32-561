@@ -87,7 +87,7 @@ public class CompanyIntegrationTest {
         Company company = new Company("OOCL");
         int id = companyRepository.save(company).getId();
         String companyJson = "{\n" +
-                "    \"id\": 1,\n" +
+                "    \"id\": "+id+",\n" +
                 "    \"companyName\": \"oocl\"\n" +
                 "  }";
 
