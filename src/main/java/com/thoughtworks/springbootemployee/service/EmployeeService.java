@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Employee;
 
 import java.util.ArrayList;
@@ -7,11 +9,11 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    public void addEmployee(Employee employee);
-
     public List<Employee> getAllEmployee();
 
     public List<Employee> getEmployeesOfCurPage(int page, int pageSize);
+
+    EmployeeResponse addEmployee(EmployeeRequest employeeRequest);
 
     public List<Employee> getEmployeeWithGender(String gender);
 

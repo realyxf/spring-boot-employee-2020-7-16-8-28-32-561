@@ -18,6 +18,9 @@ public class EmployeeRequest {
         this.company_id = company_id;
     }
 
+    public EmployeeRequest() {
+    }
+
     public String getName() {
         return name;
     }

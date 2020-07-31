@@ -2,10 +2,12 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.ExceptionHandler.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +45,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    public EmployeeResponse addEmployee(EmployeeRequest employeeRequest) {
+        Optional<Company> company = companyRepository.findById(employeeRequest.getCompany_id());
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeRequest, employee);
+        employee.setCompany(company.get());
+
+        Employee employeeReturn = employeeRepository.save(employee);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        BeanUtils.copyProperties(employeeReturn, employeeResponse);
+        employeeResponse.setCompanyName(company.get().getCompanyName());
+        return employeeResponse;
     }
 
 

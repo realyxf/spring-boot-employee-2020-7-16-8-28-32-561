@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +54,8 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEmployee(@RequestBody @Valid Employee employee) {
-        employeeService.addEmployee(employee);
+    public EmployeeResponse addEmployee(@RequestBody @Valid EmployeeRequest employeeRequest) {
+        return employeeService.addEmployee(employeeRequest);
     }
 
 }
