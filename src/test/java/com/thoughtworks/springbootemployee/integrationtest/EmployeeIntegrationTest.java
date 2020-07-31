@@ -37,10 +37,8 @@ public class EmployeeIntegrationTest {
     }
 
     @Test
-    void should_return_ok_when_find_employee_given_1_employee() throws Exception {
-
+    void should_return_ok_when_find_employee() throws Exception {
         mockMvc.perform(get("/employees")).andExpect(status().isOk());
-
     }
 
     @Test
