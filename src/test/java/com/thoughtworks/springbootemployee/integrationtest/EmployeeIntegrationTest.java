@@ -87,4 +87,32 @@ public class EmployeeIntegrationTest {
         mockMvc.perform(delete("/employees/" + id)).andExpect(status().isOk());
 
     }
+
+    @Test
+    void should_return_1_employee_when_update_1_employee_given_1_employee() throws Exception {
+        String companyJson = "{\n" +
+                "    \"companyName\": \"OOCL\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson));
+
+        Employee employee = new Employee("bbb");
+        int id = employeeRepository.save(employee).getId();
+        String employeeJson = "{\n" +
+                "    \"id\": "+id+",\n" +
+                "    \"name\": \"aaaa\",\n" +
+                "    \"age\": 20,\n" +
+                "    \"gender\": \"Male\",\n" +
+                "    \"company_id\": 1\n" +
+                "}";
+
+        mockMvc.perform(put("/employees/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeJson))
+                .andExpect(status().isOk());
+
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        assertEquals("aaaa", employeeList.get(0).getName());
+    }
+
 }
