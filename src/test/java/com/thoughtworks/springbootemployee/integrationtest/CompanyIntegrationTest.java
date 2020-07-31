@@ -37,7 +37,7 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_ok_when_find_company_given_1_company() throws Exception {
+    void should_return_ok_when_find_company() throws Exception { //TODO
 
         mockMvc.perform(get("/companies")).andExpect(status().isOk());
 
